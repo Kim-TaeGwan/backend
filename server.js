@@ -129,6 +129,55 @@ type: "백엔드개발자"
 ]
 }
 
-app.get('/company',function(req,res) {
-   res.json(company);
+// 전체리스트
+app.get('/company',function(req,res){
+    res.json(company);
 });
+
+// 하나의 회사정보
+app.get('/company/:id',function(req,res){ // id가 4인 회사의 정보를 가져옴 // url의 변수를 가져올때는 : 을 붙인다 // 뭐가들어오든 :id는 4가 나온다
+    
+    let data = company.company; //company안에서 company
+    
+    let company_id = req.params.id; // :id가 뭐가 들어오는지 체크 // reques(요청온) params id가 뭔지?
+    console.log(company_id)
+    
+    let result = data.filter(function(value,index) { // 13개의 목록을 필터링하겠다. 4번만 나오게 필터링 // data의 value를 필터함
+        return value.id == Number(company_id);
+        //value의 id가 4와 같은것만 리턴한다. //:id가 문자로 들어오기떄문에 == 두개붙임... 골치가 안아픔... 요즘은 ===(=3개)를 붙임 //해킹 보안 방지를위해 자료형 넣음
+    });
+    
+    // res.json({ details : result[0] }); // 항상 0번째만 보낸다 // 배열안의 데이터를....
+    res.json({ details : result });
+    
+/*    res.json({ // 이런식으로 하나씩 보내도됨
+        name : result[0].name,
+        recruit : result[0].recruit,
+    }); */
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
